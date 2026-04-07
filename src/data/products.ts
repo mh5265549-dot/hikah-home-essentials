@@ -15,6 +15,8 @@ export interface Product {
   price: number;
   category: string;
   unit: string;
+  seasonal?: boolean;
+  seasonLabel?: string;
 }
 
 export interface Category {
@@ -38,81 +40,89 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
-  // Staples
-  { id: "rice", name: "Rice", price: 120, category: "staples", unit: "kg" },
-  { id: "wheat-flour", name: "Wheat Flour (Atta)", price: 65, category: "staples", unit: "kg" },
-  { id: "maize-flour", name: "Maize Flour", price: 55, category: "staples", unit: "kg" },
-  { id: "bread", name: "Bread", price: 70, category: "staples", unit: "loaf" },
-  { id: "cooking-oil", name: "Cooking Oil", price: 250, category: "staples", unit: "liter" },
-  { id: "sugar", name: "Sugar", price: 85, category: "staples", unit: "kg" },
-  { id: "salt", name: "Salt", price: 25, category: "staples", unit: "kg" },
-  { id: "tea", name: "Tea", price: 180, category: "staples", unit: "250g" },
-  { id: "coffee", name: "Coffee", price: 320, category: "staples", unit: "250g" },
+  // Staples (April 2026 market rates)
+  { id: "rice", name: "Rice (Basmati)", price: 280, category: "staples", unit: "kg" },
+  { id: "wheat-flour", name: "Wheat Flour (Atta)", price: 120, category: "staples", unit: "kg" },
+  { id: "maize-flour", name: "Maize Flour", price: 100, category: "staples", unit: "kg" },
+  { id: "bread", name: "Bread", price: 120, category: "staples", unit: "loaf" },
+  { id: "cooking-oil", name: "Cooking Oil", price: 480, category: "staples", unit: "liter" },
+  { id: "sugar", name: "Sugar", price: 150, category: "staples", unit: "kg" },
+  { id: "salt", name: "Salt", price: 50, category: "staples", unit: "kg" },
+  { id: "tea", name: "Tea", price: 350, category: "staples", unit: "250g" },
+  { id: "coffee", name: "Coffee", price: 600, category: "staples", unit: "250g" },
 
-  // Dairy
-  { id: "milk", name: "Milk", price: 70, category: "dairy", unit: "liter" },
-  { id: "yogurt", name: "Yogurt", price: 50, category: "dairy", unit: "500g" },
-  { id: "eggs", name: "Eggs", price: 150, category: "dairy", unit: "dozen" },
-  { id: "butter", name: "Butter", price: 95, category: "dairy", unit: "200g" },
-  { id: "ghee", name: "Ghee", price: 450, category: "dairy", unit: "500g" },
+  // Dairy & Eggs
+  { id: "milk", name: "Milk", price: 180, category: "dairy", unit: "liter" },
+  { id: "yogurt", name: "Yogurt", price: 120, category: "dairy", unit: "500g" },
+  { id: "eggs", name: "Eggs", price: 280, category: "dairy", unit: "dozen" },
+  { id: "butter", name: "Butter", price: 200, category: "dairy", unit: "200g" },
+  { id: "ghee", name: "Ghee", price: 750, category: "dairy", unit: "500g" },
 
-  // Spices
-  { id: "red-chili", name: "Red Chili Powder", price: 90, category: "spices", unit: "200g" },
-  { id: "turmeric", name: "Turmeric", price: 60, category: "spices", unit: "200g" },
-  { id: "coriander", name: "Coriander Powder", price: 55, category: "spices", unit: "200g" },
-  { id: "black-pepper", name: "Black Pepper", price: 120, category: "spices", unit: "100g" },
+  // Spices & Seasonings
+  { id: "red-chili", name: "Red Chili Powder", price: 160, category: "spices", unit: "200g" },
+  { id: "turmeric", name: "Turmeric", price: 120, category: "spices", unit: "200g" },
+  { id: "coriander", name: "Coriander Powder", price: 100, category: "spices", unit: "200g" },
+  { id: "black-pepper", name: "Black Pepper", price: 250, category: "spices", unit: "100g" },
 
   // Lentils & Beans
-  { id: "masoor-dal", name: "Masoor Dal", price: 110, category: "lentils", unit: "kg" },
-  { id: "moong-dal", name: "Moong Dal", price: 130, category: "lentils", unit: "kg" },
-  { id: "chana-dal", name: "Chana Dal", price: 100, category: "lentils", unit: "kg" },
-  { id: "chickpeas", name: "Chickpeas", price: 120, category: "lentils", unit: "kg" },
-  { id: "rajma", name: "Kidney Beans (Rajma)", price: 140, category: "lentils", unit: "kg" },
+  { id: "masoor-dal", name: "Masoor Dal", price: 220, category: "lentils", unit: "kg" },
+  { id: "moong-dal", name: "Moong Dal", price: 260, category: "lentils", unit: "kg" },
+  { id: "chana-dal", name: "Chana Dal", price: 200, category: "lentils", unit: "kg" },
+  { id: "chickpeas", name: "Chickpeas", price: 240, category: "lentils", unit: "kg" },
+  { id: "rajma", name: "Kidney Beans (Rajma)", price: 280, category: "lentils", unit: "kg" },
 
-  // Vegetables
-  { id: "potatoes", name: "Potatoes", price: 40, category: "vegetables", unit: "kg" },
-  { id: "onions", name: "Onions", price: 35, category: "vegetables", unit: "kg" },
-  { id: "tomatoes", name: "Tomatoes", price: 45, category: "vegetables", unit: "kg" },
-  { id: "carrots", name: "Carrots", price: 50, category: "vegetables", unit: "kg" },
-  { id: "cucumbers", name: "Cucumbers", price: 30, category: "vegetables", unit: "kg" },
-  { id: "spinach", name: "Spinach", price: 25, category: "vegetables", unit: "bunch" },
-  { id: "cabbage", name: "Cabbage", price: 35, category: "vegetables", unit: "piece" },
-  { id: "green-chilies", name: "Green Chilies", price: 20, category: "vegetables", unit: "100g" },
-  { id: "garlic", name: "Garlic", price: 60, category: "vegetables", unit: "250g" },
-  { id: "ginger", name: "Ginger", price: 55, category: "vegetables", unit: "250g" },
+  // Vegetables (Spring/April Season)
+  { id: "potatoes", name: "Potatoes", price: 60, category: "vegetables", unit: "kg" },
+  { id: "onions", name: "Onions", price: 80, category: "vegetables", unit: "kg" },
+  { id: "tomatoes", name: "Tomatoes", price: 100, category: "vegetables", unit: "kg" },
+  { id: "carrots", name: "Carrots", price: 70, category: "vegetables", unit: "kg", seasonal: true, seasonLabel: "Spring" },
+  { id: "cucumbers", name: "Cucumbers", price: 50, category: "vegetables", unit: "kg", seasonal: true, seasonLabel: "In Season" },
+  { id: "spinach", name: "Spinach", price: 30, category: "vegetables", unit: "bunch", seasonal: true, seasonLabel: "Spring" },
+  { id: "cabbage", name: "Cabbage", price: 50, category: "vegetables", unit: "piece", seasonal: true, seasonLabel: "Spring" },
+  { id: "green-chilies", name: "Green Chilies", price: 40, category: "vegetables", unit: "100g" },
+  { id: "garlic", name: "Garlic", price: 120, category: "vegetables", unit: "250g" },
+  { id: "ginger", name: "Ginger", price: 100, category: "vegetables", unit: "250g" },
+  { id: "peas", name: "Green Peas", price: 90, category: "vegetables", unit: "kg", seasonal: true, seasonLabel: "Spring" },
+  { id: "bitter-gourd", name: "Bitter Gourd", price: 80, category: "vegetables", unit: "kg", seasonal: true, seasonLabel: "Spring" },
+  { id: "bottle-gourd", name: "Bottle Gourd (Lauki)", price: 60, category: "vegetables", unit: "piece", seasonal: true, seasonLabel: "In Season" },
+  { id: "lady-finger", name: "Lady Finger (Bhindi)", price: 120, category: "vegetables", unit: "kg", seasonal: true, seasonLabel: "Coming Soon" },
 
-  // Fruits
-  { id: "apples", name: "Apples", price: 180, category: "fruits", unit: "kg" },
-  { id: "bananas", name: "Bananas", price: 60, category: "fruits", unit: "dozen" },
-  { id: "mangoes", name: "Mangoes", price: 200, category: "fruits", unit: "kg" },
-  { id: "oranges", name: "Oranges", price: 120, category: "fruits", unit: "kg" },
-  { id: "grapes", name: "Grapes", price: 150, category: "fruits", unit: "kg" },
+  // Fruits (Spring/April Season)
+  { id: "mangoes", name: "Mangoes (Sindhri)", price: 250, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "Early Season" },
+  { id: "bananas", name: "Bananas", price: 80, category: "fruits", unit: "dozen" },
+  { id: "watermelon", name: "Watermelon", price: 40, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "In Season" },
+  { id: "apples", name: "Apples", price: 280, category: "fruits", unit: "kg" },
+  { id: "oranges", name: "Oranges (Kinnow)", price: 100, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "Last Stock" },
+  { id: "grapes", name: "Grapes", price: 200, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "In Season" },
+  { id: "guava", name: "Guava (Amrood)", price: 120, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "Spring" },
+  { id: "papaya", name: "Papaya", price: 100, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "In Season" },
+  { id: "lychee", name: "Lychee", price: 350, category: "fruits", unit: "kg", seasonal: true, seasonLabel: "Coming Soon" },
 
-  // Meat & Seafood
-  { id: "chicken", name: "Chicken", price: 350, category: "meat", unit: "kg" },
-  { id: "beef", name: "Beef", price: 600, category: "meat", unit: "kg" },
-  { id: "mutton", name: "Mutton", price: 1200, category: "meat", unit: "kg" },
-  { id: "fish", name: "Fish", price: 400, category: "meat", unit: "kg" },
-  { id: "prawns", name: "Prawns (Shrimp)", price: 800, category: "meat", unit: "kg" },
+  // Meat & Seafood (Updated market rates April 2026)
+  { id: "chicken", name: "Chicken", price: 480, category: "meat", unit: "kg" },
+  { id: "beef", name: "Beef", price: 850, category: "meat", unit: "kg" },
+  { id: "mutton", name: "Mutton", price: 1800, category: "meat", unit: "kg" },
+  { id: "fish", name: "Fish (Rohu)", price: 550, category: "meat", unit: "kg" },
+  { id: "prawns", name: "Prawns (Shrimp)", price: 1200, category: "meat", unit: "kg" },
 
-  // Snacks
-  { id: "biscuits", name: "Biscuits", price: 40, category: "snacks", unit: "pack" },
-  { id: "chips", name: "Chips", price: 30, category: "snacks", unit: "pack" },
-  { id: "noodles", name: "Noodles", price: 25, category: "snacks", unit: "pack" },
-  { id: "pasta", name: "Pasta", price: 80, category: "snacks", unit: "500g" },
+  // Snacks & Packaged
+  { id: "biscuits", name: "Biscuits", price: 80, category: "snacks", unit: "pack" },
+  { id: "chips", name: "Chips", price: 60, category: "snacks", unit: "pack" },
+  { id: "noodles", name: "Noodles", price: 50, category: "snacks", unit: "pack" },
+  { id: "pasta", name: "Pasta", price: 160, category: "snacks", unit: "500g" },
 
-  // Condiments
-  { id: "ketchup", name: "Ketchup", price: 90, category: "condiments", unit: "bottle" },
-  { id: "mayonnaise", name: "Mayonnaise", price: 120, category: "condiments", unit: "bottle" },
-  { id: "soy-sauce", name: "Soy Sauce", price: 75, category: "condiments", unit: "bottle" },
-  { id: "vinegar", name: "Vinegar", price: 45, category: "condiments", unit: "bottle" },
+  // Condiments & Sauces
+  { id: "ketchup", name: "Ketchup", price: 180, category: "condiments", unit: "bottle" },
+  { id: "mayonnaise", name: "Mayonnaise", price: 250, category: "condiments", unit: "bottle" },
+  { id: "soy-sauce", name: "Soy Sauce", price: 150, category: "condiments", unit: "bottle" },
+  { id: "vinegar", name: "Vinegar", price: 90, category: "condiments", unit: "bottle" },
 
-  // Household
-  { id: "soap", name: "Soap", price: 35, category: "household", unit: "bar" },
-  { id: "shampoo", name: "Shampoo", price: 180, category: "household", unit: "bottle" },
-  { id: "toothpaste", name: "Toothpaste", price: 70, category: "household", unit: "tube" },
-  { id: "detergent", name: "Detergent", price: 150, category: "household", unit: "kg" },
-  { id: "dishwashing", name: "Dishwashing Liquid", price: 95, category: "household", unit: "bottle" },
-  { id: "tissues", name: "Tissues", price: 60, category: "household", unit: "box" },
-  { id: "toilet-paper", name: "Toilet Paper", price: 80, category: "household", unit: "pack" },
+  // Household Essentials
+  { id: "soap", name: "Soap", price: 80, category: "household", unit: "bar" },
+  { id: "shampoo", name: "Shampoo", price: 350, category: "household", unit: "bottle" },
+  { id: "toothpaste", name: "Toothpaste", price: 150, category: "household", unit: "tube" },
+  { id: "detergent", name: "Detergent", price: 300, category: "household", unit: "kg" },
+  { id: "dishwashing", name: "Dishwashing Liquid", price: 200, category: "household", unit: "bottle" },
+  { id: "tissues", name: "Tissues", price: 120, category: "household", unit: "box" },
+  { id: "toilet-paper", name: "Toilet Paper", price: 160, category: "household", unit: "pack" },
 ];
