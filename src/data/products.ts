@@ -105,24 +105,24 @@ export const products: Product[] = [
   { id: "fish", name: "Fish (Rohu)", price: 550, category: "meat", unit: "kg" },
   { id: "prawns", name: "Prawns (Shrimp)", price: 1200, category: "meat", unit: "kg" },
 
-  // Snacks
-  { id: "biscuits", name: "Biscuits", price: 40, category: "snacks", unit: "pack" },
-  { id: "chips", name: "Chips", price: 30, category: "snacks", unit: "pack" },
-  { id: "noodles", name: "Noodles", price: 25, category: "snacks", unit: "pack" },
-  { id: "pasta", name: "Pasta", price: 80, category: "snacks", unit: "500g" },
+  // Snacks & Packaged
+  { id: "biscuits", name: "Biscuits", price: 80, category: "snacks", unit: "pack" },
+  { id: "chips", name: "Chips", price: 60, category: "snacks", unit: "pack" },
+  { id: "noodles", name: "Noodles", price: 50, category: "snacks", unit: "pack" },
+  { id: "pasta", name: "Pasta", price: 160, category: "snacks", unit: "500g" },
 
-  // Condiments
-  { id: "ketchup", name: "Ketchup", price: 90, category: "condiments", unit: "bottle" },
-  { id: "mayonnaise", name: "Mayonnaise", price: 120, category: "condiments", unit: "bottle" },
-  { id: "soy-sauce", name: "Soy Sauce", price: 75, category: "condiments", unit: "bottle" },
-  { id: "vinegar", name: "Vinegar", price: 45, category: "condiments", unit: "bottle" },
+  // Condiments & Sauces
+  { id: "ketchup", name: "Ketchup", price: 180, category: "condiments", unit: "bottle" },
+  { id: "mayonnaise", name: "Mayonnaise", price: 250, category: "condiments", unit: "bottle" },
+  { id: "soy-sauce", name: "Soy Sauce", price: 150, category: "condiments", unit: "bottle" },
+  { id: "vinegar", name: "Vinegar", price: 90, category: "condiments", unit: "bottle" },
 
-  // Household
-  { id: "soap", name: "Soap", price: 35, category: "household", unit: "bar" },
-  { id: "shampoo", name: "Shampoo", price: 180, category: "household", unit: "bottle" },
-  { id: "toothpaste", name: "Toothpaste", price: 70, category: "household", unit: "tube" },
-  { id: "detergent", name: "Detergent", price: 150, category: "household", unit: "kg" },
-  { id: "dishwashing", name: "Dishwashing Liquid", price: 95, category: "household", unit: "bottle" },
-  { id: "tissues", name: "Tissues", price: 60, category: "household", unit: "box" },
-  { id: "toilet-paper", name: "Toilet Paper", price: 80, category: "household", unit: "pack" },
+  // Household Essentials
+  { id: "soap", name: "Soap", price: 80, category: "household", unit: "bar" },
+  { id: "shampoo", name: "Shampoo", price: 350, category: "household", unit: "bottle" },
+  { id: "toothpaste", name: "Toothpaste", price: 150, category: "household", unit: "tube" },
+  { id: "detergent", name: "Detergent", price: 300, category: "household", unit: "kg" },
+  { id: "dishwashing", name: "Dishwashing Liquid", price: 200, category: "household", unit: "bottle" },
+  { id: "tissues", name: "Tissues", price: 120, category: "household", unit: "box" },
+  { id: "toilet-paper", name: "Toilet Paper", price: 160, category: "household", unit: "pack" },
 ];
