@@ -56,6 +56,14 @@ import detergent from "@/assets/products/detergent.jpg";
 import dishwashing from "@/assets/products/dishwashing.jpg";
 import tissues from "@/assets/products/tissues.jpg";
 import toiletPaper from "@/assets/products/toilet-paper.jpg";
+import peas from "@/assets/products/peas.jpg";
+import bitterGourd from "@/assets/products/bitter-gourd.jpg";
+import bottleGourd from "@/assets/products/bottle-gourd.jpg";
+import ladyFinger from "@/assets/products/lady-finger.jpg";
+import watermelon from "@/assets/products/watermelon.jpg";
+import guava from "@/assets/products/guava.jpg";
+import papaya from "@/assets/products/papaya.jpg";
+import lychee from "@/assets/products/lychee.jpg";
 
 export const productImages: Record<string, string> = {
   rice, "wheat-flour": wheatFlour, "maize-flour": maizeFlour, bread,
@@ -66,7 +74,9 @@ export const productImages: Record<string, string> = {
   chickpeas, rajma,
   potatoes, onions, tomatoes, carrots, cucumbers, spinach, cabbage,
   "green-chilies": greenChilies, garlic, ginger,
+  peas, "bitter-gourd": bitterGourd, "bottle-gourd": bottleGourd, "lady-finger": ladyFinger,
   apples, bananas, mangoes, oranges, grapes,
+  watermelon, guava, papaya, lychee,
   chicken, beef, mutton, fish, prawns,
   biscuits, chips, noodles, pasta,
   ketchup, mayonnaise, "soy-sauce": soySauce, vinegar,

@@ -1,7 +1,8 @@
-import { ShoppingCart, Plus, Minus } from "lucide-react";
-import { Product, categories } from "@/data/products";
+import { ShoppingCart, Plus, Minus, Leaf } from "lucide-react";
+import { Product } from "@/data/products";
 import { productImages } from "@/data/productImages";
 import { useCart } from "@/context/CartContext";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
   product: Product;
@@ -13,7 +14,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const image = productImages[product.id];
 
   return (
-    <div className="bg-card rounded-xl card-shadow hover:card-hover-shadow transition-all duration-300 overflow-hidden flex flex-col">
+    <div className="bg-card rounded-xl card-shadow hover:card-hover-shadow transition-all duration-300 overflow-hidden flex flex-col relative">
+      {product.seasonal && product.seasonLabel && (
+        <div className="absolute top-2 left-2 z-10">
+          <Badge
+            className={`text-[10px] font-semibold px-2 py-0.5 ${
+              product.seasonLabel === "In Season"
+                ? "bg-primary text-primary-foreground"
+                : product.seasonLabel === "Coming Soon" || product.seasonLabel === "Last Stock"
+                ? "bg-secondary text-secondary-foreground"
+                : "bg-accent text-accent-foreground"
+            }`}
+          >
+            <Leaf className="w-3 h-3 mr-1" />
+            {product.seasonLabel}
+          </Badge>
+        </div>
+      )}
       <div className="aspect-square overflow-hidden bg-muted">
         <img
           src={image}
