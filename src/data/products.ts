@@ -40,36 +40,36 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
-  // Staples
-  { id: "rice", name: "Rice", price: 120, category: "staples", unit: "kg" },
-  { id: "wheat-flour", name: "Wheat Flour (Atta)", price: 65, category: "staples", unit: "kg" },
-  { id: "maize-flour", name: "Maize Flour", price: 55, category: "staples", unit: "kg" },
-  { id: "bread", name: "Bread", price: 70, category: "staples", unit: "loaf" },
-  { id: "cooking-oil", name: "Cooking Oil", price: 250, category: "staples", unit: "liter" },
-  { id: "sugar", name: "Sugar", price: 85, category: "staples", unit: "kg" },
-  { id: "salt", name: "Salt", price: 25, category: "staples", unit: "kg" },
-  { id: "tea", name: "Tea", price: 180, category: "staples", unit: "250g" },
-  { id: "coffee", name: "Coffee", price: 320, category: "staples", unit: "250g" },
+  // Staples (April 2026 market rates)
+  { id: "rice", name: "Rice (Basmati)", price: 280, category: "staples", unit: "kg" },
+  { id: "wheat-flour", name: "Wheat Flour (Atta)", price: 120, category: "staples", unit: "kg" },
+  { id: "maize-flour", name: "Maize Flour", price: 100, category: "staples", unit: "kg" },
+  { id: "bread", name: "Bread", price: 120, category: "staples", unit: "loaf" },
+  { id: "cooking-oil", name: "Cooking Oil", price: 480, category: "staples", unit: "liter" },
+  { id: "sugar", name: "Sugar", price: 150, category: "staples", unit: "kg" },
+  { id: "salt", name: "Salt", price: 50, category: "staples", unit: "kg" },
+  { id: "tea", name: "Tea", price: 350, category: "staples", unit: "250g" },
+  { id: "coffee", name: "Coffee", price: 600, category: "staples", unit: "250g" },
 
-  // Dairy
-  { id: "milk", name: "Milk", price: 70, category: "dairy", unit: "liter" },
-  { id: "yogurt", name: "Yogurt", price: 50, category: "dairy", unit: "500g" },
-  { id: "eggs", name: "Eggs", price: 150, category: "dairy", unit: "dozen" },
-  { id: "butter", name: "Butter", price: 95, category: "dairy", unit: "200g" },
-  { id: "ghee", name: "Ghee", price: 450, category: "dairy", unit: "500g" },
+  // Dairy & Eggs
+  { id: "milk", name: "Milk", price: 180, category: "dairy", unit: "liter" },
+  { id: "yogurt", name: "Yogurt", price: 120, category: "dairy", unit: "500g" },
+  { id: "eggs", name: "Eggs", price: 280, category: "dairy", unit: "dozen" },
+  { id: "butter", name: "Butter", price: 200, category: "dairy", unit: "200g" },
+  { id: "ghee", name: "Ghee", price: 750, category: "dairy", unit: "500g" },
 
-  // Spices
-  { id: "red-chili", name: "Red Chili Powder", price: 90, category: "spices", unit: "200g" },
-  { id: "turmeric", name: "Turmeric", price: 60, category: "spices", unit: "200g" },
-  { id: "coriander", name: "Coriander Powder", price: 55, category: "spices", unit: "200g" },
-  { id: "black-pepper", name: "Black Pepper", price: 120, category: "spices", unit: "100g" },
+  // Spices & Seasonings
+  { id: "red-chili", name: "Red Chili Powder", price: 160, category: "spices", unit: "200g" },
+  { id: "turmeric", name: "Turmeric", price: 120, category: "spices", unit: "200g" },
+  { id: "coriander", name: "Coriander Powder", price: 100, category: "spices", unit: "200g" },
+  { id: "black-pepper", name: "Black Pepper", price: 250, category: "spices", unit: "100g" },
 
   // Lentils & Beans
-  { id: "masoor-dal", name: "Masoor Dal", price: 110, category: "lentils", unit: "kg" },
-  { id: "moong-dal", name: "Moong Dal", price: 130, category: "lentils", unit: "kg" },
-  { id: "chana-dal", name: "Chana Dal", price: 100, category: "lentils", unit: "kg" },
-  { id: "chickpeas", name: "Chickpeas", price: 120, category: "lentils", unit: "kg" },
-  { id: "rajma", name: "Kidney Beans (Rajma)", price: 140, category: "lentils", unit: "kg" },
+  { id: "masoor-dal", name: "Masoor Dal", price: 220, category: "lentils", unit: "kg" },
+  { id: "moong-dal", name: "Moong Dal", price: 260, category: "lentils", unit: "kg" },
+  { id: "chana-dal", name: "Chana Dal", price: 200, category: "lentils", unit: "kg" },
+  { id: "chickpeas", name: "Chickpeas", price: 240, category: "lentils", unit: "kg" },
+  { id: "rajma", name: "Kidney Beans (Rajma)", price: 280, category: "lentils", unit: "kg" },
 
   // Vegetables (Spring/April Season)
   { id: "potatoes", name: "Potatoes", price: 60, category: "vegetables", unit: "kg" },
