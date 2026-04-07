@@ -15,6 +15,8 @@ export interface Product {
   price: number;
   category: string;
   unit: string;
+  seasonal?: boolean;
+  seasonLabel?: string;
 }
 
 export interface Category {
