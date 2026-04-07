@@ -14,7 +14,74 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      price_history: {
+        Row: {
+          id: string
+          new_price: number
+          old_price: number
+          product_id: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          new_price: number
+          old_price: number
+          product_id: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          new_price?: number
+          old_price?: number
+          product_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "price_history_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          last_price_update: string | null
+          name: string
+          price: number
+          season_label: string | null
+          seasonal: boolean | null
+          unit: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id: string
+          last_price_update?: string | null
+          name: string
+          price: number
+          season_label?: string | null
+          seasonal?: boolean | null
+          unit: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          last_price_update?: string | null
+          name?: string
+          price?: number
+          season_label?: string | null
+          seasonal?: boolean | null
+          unit?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
