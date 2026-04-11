@@ -17,7 +17,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
             <Leaf className="w-6 h-6 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground tracking-tight">HIKAH</h1>
+            <h1 className="text-xl font-bold text-foreground tracking-tight">HIKMAH</h1>
             <p className="text-xs text-muted-foreground -mt-0.5">Fresh Groceries</p>
           </div>
         </div>

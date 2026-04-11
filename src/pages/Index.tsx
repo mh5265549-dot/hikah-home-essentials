@@ -29,9 +29,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-foreground text-primary-foreground py-8 px-4">
         <div className="container mx-auto text-center">
-          <p className="font-bold text-lg mb-1">HIKAH</p>
+          <p className="font-bold text-lg mb-1">HIKMAH</p>
           <p className="text-sm opacity-70">Fresh Groceries, Delivered with Love 💚</p>
-          <p className="text-xs opacity-50 mt-4">© 2026 HIKAH. All rights reserved.</p>
+          <p className="text-xs opacity-50 mt-4">© 2026 HIKMAH. All rights reserved.</p>
         </div>
       </footer>
 
