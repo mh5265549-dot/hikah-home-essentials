@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 type Step = "cart" | "info" | "payment" | "success";
 
@@ -36,9 +37,41 @@ const CheckoutFlow = ({ onClose }: CheckoutFlowProps) => {
   };
 
   const handlePayment = (method: string) => {
+    const orderPayload = {
+      customerName: name,
+      phone,
+      address,
+      items: items.map((i) => ({
+        name: i.product.name,
+        quantity: i.quantity,
+        price: i.product.price,
+      })),
+      total: totalPrice,
+      paymentMethod: method,
+    };
+
     toast.success(`Order placed via ${method}!`);
-    clearCart();
     setStep("success");
+
+    // Fire-and-forget AI voice announcement to the shop
+    (async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke(
+          "order-voice-notification",
+          { body: orderPayload }
+        );
+        if (error) throw error;
+        if (data instanceof Blob) {
+          const url = URL.createObjectURL(data);
+          const audio = new Audio(url);
+          audio.play().catch((e) => console.warn("Audio autoplay blocked:", e));
+        }
+      } catch (e) {
+        console.error("Voice notification failed:", e);
+      }
+    })();
+
+    clearCart();
   };
 
   if (step === "success") {
