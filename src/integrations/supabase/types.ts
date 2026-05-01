@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      orders: {
+        Row: {
+          address: string
+          created_at: string
+          customer_name: string
+          id: string
+          items: Json
+          payment_method: string
+          phone: string
+          total: number
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          customer_name: string
+          id?: string
+          items: Json
+          payment_method: string
+          phone: string
+          total: number
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          customer_name?: string
+          id?: string
+          items?: Json
+          payment_method?: string
+          phone?: string
+          total?: number
+        }
+        Relationships: []
+      }
       price_history: {
         Row: {
           id: string
