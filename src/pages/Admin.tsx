@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Package } from "lucide-react";
+import { Loader2, Lock, Package } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface OrderItem {
   name: string;
@@ -23,34 +26,79 @@ interface Order {
 
 const Admin = () => {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [authed, setAuthed] = useState(false);
+
+  const fetchOrders = async (pw: string) => {
+    setLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-orders", {
+      headers: { "x-admin-password": pw },
+    });
+    setLoading(false);
+
+    if (error || (data as any)?.error) {
+      toast.error("Incorrect password or unable to load orders");
+      return false;
+    }
+    setOrders(((data as any)?.orders ?? []) as Order[]);
+    return true;
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!password.trim()) return;
+    const ok = await fetchOrders(password);
+    if (ok) {
+      setAuthed(true);
+      sessionStorage.setItem("hikmah_admin_pw", password);
+    }
+  };
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const { data, error } = await supabase
-        .from("orders")
-        .select("*")
-        .order("created_at", { ascending: false });
-      if (!error && data) setOrders(data as unknown as Order[]);
-      setLoading(false);
-    };
-    fetchOrders();
-
-    const channel = supabase
-      .channel("orders-admin")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "orders" },
-        (payload) => {
-          setOrders((prev) => [payload.new as unknown as Order, ...prev]);
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    const saved = sessionStorage.getItem("hikmah_admin_pw");
+    if (saved) {
+      setPassword(saved);
+      fetchOrders(saved).then((ok) => {
+        if (ok) setAuthed(true);
+        else sessionStorage.removeItem("hikmah_admin_pw");
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!authed) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Card className="w-full max-w-sm">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+              <Lock className="w-5 h-5 text-primary" />
+            </div>
+            <CardTitle>Admin Access</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-3">
+              <Input
+                type="password"
+                placeholder="Admin password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoFocus
+              />
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Sign in"
+                )}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
