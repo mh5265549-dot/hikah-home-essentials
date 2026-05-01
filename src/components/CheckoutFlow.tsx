@@ -53,6 +53,23 @@ const CheckoutFlow = ({ onClose }: CheckoutFlowProps) => {
     toast.success(`Order placed via ${method}!`);
     setStep("success");
 
+    // Persist order to the database
+    (async () => {
+      try {
+        const { error } = await supabase.from("orders").insert({
+          customer_name: orderPayload.customerName,
+          phone: orderPayload.phone,
+          address: orderPayload.address,
+          items: orderPayload.items,
+          total: orderPayload.total,
+          payment_method: orderPayload.paymentMethod,
+        });
+        if (error) throw error;
+      } catch (e) {
+        console.error("Failed to save order:", e);
+      }
+    })();
+
     // Fire-and-forget AI voice announcement to the shop
     (async () => {
       try {
