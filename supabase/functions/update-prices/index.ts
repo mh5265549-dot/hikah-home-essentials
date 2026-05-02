@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-admin-password",
 };
 
 serve(async (req) => {
@@ -12,6 +12,23 @@ serve(async (req) => {
   }
 
   try {
+    // Require admin password — this function performs privileged writes
+    // and consumes AI credits, so it must never be callable anonymously.
+    const ADMIN_PASSWORD = Deno.env.get("ADMIN_PASSWORD");
+    if (!ADMIN_PASSWORD) {
+      return new Response(
+        JSON.stringify({ error: "Admin password not configured" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+    const provided = req.headers.get("x-admin-password") ?? "";
+    if (provided !== ADMIN_PASSWORD) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
