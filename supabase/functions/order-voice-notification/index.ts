@@ -1,18 +1,10 @@
 import { corsHeaders } from "https://esm.sh/@supabase/supabase-js@2.95.0/cors";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 interface OrderItem {
   name: string;
   quantity: number;
   price: number;
-}
-
-interface OrderPayload {
-  customerName: string;
-  phone: string;
-  address: string;
-  items: OrderItem[];
-  total: number;
-  paymentMethod: string;
 }
 
 const VOICE_ID = "JBFqnCBsd6RMkjVDRZzb"; // George - clear male voice
@@ -28,14 +20,77 @@ Deno.serve(async (req) => {
       throw new Error("ELEVENLABS_API_KEY is not configured");
     }
 
-    const order: OrderPayload = await req.json();
-
-    if (!order?.customerName || !Array.isArray(order.items) || order.items.length === 0) {
+    // Anti-abuse: require a valid, recently-created order ID. We look it up
+    // server-side with the service role and only allow the voice notification
+    // to fire once per order. This prevents anonymous callers from burning
+    // ElevenLabs credits with crafted payloads.
+    const body = await req.json().catch(() => null);
+    const orderId = body?.orderId;
+    if (typeof orderId !== "string" || !/^[0-9a-f-]{36}$/i.test(orderId)) {
       return new Response(
-        JSON.stringify({ error: "Invalid order payload" }),
+        JSON.stringify({ error: "Invalid orderId" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    const admin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    const { data: orderRow, error: lookupErr } = await admin
+      .from("orders")
+      .select("id, customer_name, phone, address, items, total, payment_method, created_at, voice_notified_at")
+      .eq("id", orderId)
+      .maybeSingle();
+
+    if (lookupErr) throw lookupErr;
+    if (!orderRow) {
+      return new Response(
+        JSON.stringify({ error: "Order not found" }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Only allow notification within 5 minutes of order creation, and only once.
+    const ageMs = Date.now() - new Date(orderRow.created_at).getTime();
+    if (ageMs > 5 * 60 * 1000) {
+      return new Response(
+        JSON.stringify({ error: "Order too old for notification" }),
+        { status: 410, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    if (orderRow.voice_notified_at) {
+      return new Response(
+        JSON.stringify({ error: "Already notified" }),
+        { status: 409, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Atomically claim the notification slot to prevent concurrent duplicate calls.
+    const { data: claimed, error: claimErr } = await admin
+      .from("orders")
+      .update({ voice_notified_at: new Date().toISOString() })
+      .eq("id", orderId)
+      .is("voice_notified_at", null)
+      .select("id")
+      .maybeSingle();
+    if (claimErr) throw claimErr;
+    if (!claimed) {
+      return new Response(
+        JSON.stringify({ error: "Already notified" }),
+        { status: 409, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const order = {
+      customerName: orderRow.customer_name,
+      phone: orderRow.phone,
+      address: orderRow.address,
+      items: (orderRow.items as OrderItem[]) ?? [],
+      total: orderRow.total,
+      paymentMethod: orderRow.payment_method,
+    };
 
     // Sanitize all user-supplied fields before injecting into TTS text to
     // prevent content-injection attacks where a malicious customer could
