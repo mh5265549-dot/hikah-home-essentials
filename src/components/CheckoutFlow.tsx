@@ -56,23 +56,18 @@ const CheckoutFlow = ({ onClose }: CheckoutFlowProps) => {
     // Persist order, then trigger the voice notification by order id only.
     (async () => {
       try {
-        const { data: inserted, error } = await supabase
-          .from("orders")
-          .insert({
-            customer_name: orderPayload.customerName,
-            phone: orderPayload.phone,
-            address: orderPayload.address,
-            items: orderPayload.items,
-            total: orderPayload.total,
-            payment_method: orderPayload.paymentMethod,
-          })
-          .select("id")
-          .single();
+        const { data: newId, error } = await supabase.rpc("create_order", {
+          _customer_name: orderPayload.customerName,
+          _phone: orderPayload.phone,
+          _address: orderPayload.address,
+          _items: orderPayload.items,
+          _payment_method: orderPayload.paymentMethod,
+        });
         if (error) throw error;
 
         const { data, error: fnErr } = await supabase.functions.invoke(
           "order-voice-notification",
-          { body: { orderId: inserted.id } }
+          { body: { orderId: newId } }
         );
         if (fnErr) throw fnErr;
         if (data instanceof Blob) {
