@@ -24,6 +24,7 @@ export type Database = {
           payment_method: string
           phone: string
           total: number
+          voice_notified_at: string | null
         }
         Insert: {
           address: string
@@ -34,6 +35,7 @@ export type Database = {
           payment_method: string
           phone: string
           total: number
+          voice_notified_at?: string | null
         }
         Update: {
           address?: string
@@ -44,6 +46,7 @@ export type Database = {
           payment_method?: string
           phone?: string
           total?: number
+          voice_notified_at?: string | null
         }
         Relationships: []
       }
