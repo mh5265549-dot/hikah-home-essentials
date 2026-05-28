@@ -123,7 +123,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_order: {
+        Args: {
+          _address: string
+          _customer_name: string
+          _items: Json
+          _payment_method: string
+          _phone: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
