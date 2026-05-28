@@ -24,6 +24,7 @@ export type Database = {
           payment_method: string
           phone: string
           total: number
+          voice_notified_at: string | null
         }
         Insert: {
           address: string
@@ -34,6 +35,7 @@ export type Database = {
           payment_method: string
           phone: string
           total: number
+          voice_notified_at?: string | null
         }
         Update: {
           address?: string
@@ -44,6 +46,7 @@ export type Database = {
           payment_method?: string
           phone?: string
           total?: number
+          voice_notified_at?: string | null
         }
         Relationships: []
       }
@@ -120,7 +123,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_order: {
+        Args: {
+          _address: string
+          _customer_name: string
+          _items: Json
+          _payment_method: string
+          _phone: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
