@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://rlnvbatukamvwqbuvkxq.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "hikah-groceries-hub",
+      "version": "0.1.0",
+      "title": "HIKAH Groceries Hub"
+    },
+    "tools": [
+      {
+        "name": "list_products",
+        "title": "List products",
+        "description": "List the shop's grocery products with current prices in PKR. Optionally filter by category or search by name.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Category id, e.g. staples, dairy, fruits."
+            },
+            "search": {
+              "type": "string",
+              "description": "Case-insensitive product name search."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Maximum rows to return (default 50)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "place_order",
+        "title": "Place an order",
+        "description": "Place a grocery order for the signed-in user. Item names must match product names exactly (use list_products first). The total is always recalculated from current shop prices.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "customer_name": {
+              "type": "string",
+              "description": "Name of the person receiving the delivery."
+            },
+            "phone": {
+              "type": "string",
+              "description": "Contact phone number for the delivery."
+            },
+            "address": {
+              "type": "string",
+              "description": "Full delivery address."
+            },
+            "payment_method": {
+              "type": "string",
+              "description": "Either 'Cash on Delivery' or 'Online Payment'."
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Exact product name."
+                  },
+                  "quantity": {
+                    "type": "number",
+                    "description": "Quantity in product units."
+                  }
+                },
+                "required": [
+                  "name",
+                  "quantity"
+                ],
+                "additionalProperties": false
+              },
+              "description": "Products to order."
+            }
+          },
+          "required": [
+            "customer_name",
+            "phone",
+            "address",
+            "payment_method",
+            "items"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_orders",
+        "title": "List my orders",
+        "description": "List orders placed by the signed-in user, newest first, including items, total and payment method.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "Maximum orders to return (default 20)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

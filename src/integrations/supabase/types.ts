@@ -24,6 +24,7 @@ export type Database = {
           payment_method: string
           phone: string
           total: number
+          user_id: string | null
           voice_notified_at: string | null
         }
         Insert: {
@@ -35,6 +36,7 @@ export type Database = {
           payment_method: string
           phone: string
           total: number
+          user_id?: string | null
           voice_notified_at?: string | null
         }
         Update: {
@@ -46,6 +48,7 @@ export type Database = {
           payment_method?: string
           phone?: string
           total?: number
+          user_id?: string | null
           voice_notified_at?: string | null
         }
         Relationships: []
@@ -124,6 +127,16 @@ export type Database = {
     }
     Functions: {
       create_order: {
+        Args: {
+          _address: string
+          _customer_name: string
+          _items: Json
+          _payment_method: string
+          _phone: string
+        }
+        Returns: string
+      }
+      create_order_authed: {
         Args: {
           _address: string
           _customer_name: string
