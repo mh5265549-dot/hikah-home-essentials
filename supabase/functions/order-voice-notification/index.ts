@@ -97,7 +97,7 @@ Deno.serve(async (req) => {
     // craft fields that get spoken as fake instructions.
     const sanitizeText = (s: unknown, max: number) =>
       String(s ?? "")
-        .replace(/[^\p{L}\p{N}\s,.\-'\/]/gu, " ")
+        .replace(/[^\p{L}\p{N}\s,.\-'/]/gu, " ")
         .replace(/\s+/g, " ")
         .trim()
         .slice(0, max);

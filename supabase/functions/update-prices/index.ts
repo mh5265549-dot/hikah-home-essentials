@@ -105,7 +105,7 @@ Return ONLY a JSON array with objects containing: id, price (number), seasonal (
     // Update prices in database
     let updated = 0;
     for (const update of priceUpdates) {
-      const currentProduct = products?.find((p: any) => p.id === update.id);
+      const currentProduct = products?.find((p: { id: string }) => p.id === update.id);
       if (!currentProduct) continue;
 
       const oldPrice = Number(currentProduct.price);

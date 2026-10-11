@@ -37,11 +37,12 @@ const Admin = () => {
     });
     setLoading(false);
 
-    if (error || (data as any)?.error) {
+    const res = data as { error?: unknown; orders?: Order[] } | null;
+    if (error || res?.error) {
       toast.error("Incorrect password or unable to load orders");
       return false;
     }
-    setOrders(((data as any)?.orders ?? []) as Order[]);
+    setOrders(res?.orders ?? []);
     return true;
   };
 

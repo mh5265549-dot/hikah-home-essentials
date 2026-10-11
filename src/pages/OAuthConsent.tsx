@@ -4,10 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Loader2, ShieldCheck } from "lucide-react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type OAuthDetails = Record<string, any>;
+
 type OAuthApi = {
-  getAuthorizationDetails: (id: string) => Promise<{ data: any; error: any }>;
-  approveAuthorization: (id: string) => Promise<{ data: any; error: any }>;
-  denyAuthorization: (id: string) => Promise<{ data: any; error: any }>;
+  getAuthorizationDetails: (id: string) => Promise<{ data: OAuthDetails | null; error: { message: string } | null }>;
+  approveAuthorization: (id: string) => Promise<{ data: OAuthDetails | null; error: { message: string } | null }>;
+  denyAuthorization: (id: string) => Promise<{ data: OAuthDetails | null; error: { message: string } | null }>;
 };
 
 const oauth = () => (supabase.auth as unknown as { oauth: OAuthApi }).oauth;
@@ -15,7 +18,7 @@ const oauth = () => (supabase.auth as unknown as { oauth: OAuthApi }).oauth;
 const OAuthConsent = () => {
   const [params] = useSearchParams();
   const authorizationId = params.get("authorization_id") ?? "";
-  const [details, setDetails] = useState<any>(null);
+  const [details, setDetails] = useState<OAuthDetails | null>(null);
   const [account, setAccount] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
